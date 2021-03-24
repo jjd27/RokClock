@@ -6,6 +6,7 @@
 use Time::Piece;
 
 my %p;
+my $total = 0;
 
 while (<>) {
 	chop;
@@ -17,8 +18,11 @@ while (<>) {
 
 	my $diff = $t_to - $t_from;
 	$p{$proj} += $diff;
+
+	$total += $diff;
 }
 
 foreach (keys %p) {
-	print "$_	$p{$_}\n";
+	my $perc = sprintf("%.1f%%", $p{$_} * 100 / $total);
+	print "$_	$p{$_}	$perc\n";
 }
